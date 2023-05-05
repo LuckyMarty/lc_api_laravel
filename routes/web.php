@@ -23,5 +23,8 @@ Route::get('/', function () {
 
 Route::prefix('api')->group(function () {
     Route::get('/login', [LoginController::class, 'index']);
+    Route::get('/login/{email}/{password}/{secrete_key}', [LoginController::class, 'verification']);
+
+
     Route::get('/signup', [SignupController::class, 'index']);
 });
