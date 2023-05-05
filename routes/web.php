@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\LoginController;
 use App\Http\Controllers\SignupController;
 use Illuminate\Support\Facades\Route;
 
@@ -21,6 +22,6 @@ Route::get('/', function () {
 
 
 Route::prefix('api')->group(function () {
-    Route::get('/login', [SignupController::class, 'index']);
+    Route::get('/login', [LoginController::class, 'index']);
     Route::get('/signup', [SignupController::class, 'index']);
 });
