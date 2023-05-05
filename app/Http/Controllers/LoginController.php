@@ -8,20 +8,13 @@ use Illuminate\Support\Facades\Hash;
 
 class LoginController extends Controller
 {
-    public function index()
+    public function index(
+        Request $request
+    )
     {
-        return response()->json([
-            'success'   => true,
-            'name'      =>  'Jonathan'
-        ]);
-    }
-
-    public function verification(
-        string $email,
-        string $password,
-        string $secrete_key
-    ) {
-        if ($secrete_key === 'TYgTBvsqXOSO6Vx3YMlbJUl8nM3uJJiFoIEjvKpSHpdVUrAdbD') {
+        if ($request->input('key') === 'TYgTBvsqXOSO6Vx3YMlbJUl8nM3uJJiFoIEjvKpSHpdVUrAdbD') {
+            $email      = $request->input('email');
+            $password   = $request->input('password');
 
             if (User::whereEmail($email)) {
                 $user = json_decode(User::whereEmail($email)->get(), true);
@@ -31,7 +24,6 @@ class LoginController extends Controller
                         'success'   => true,
                         'name'      =>  $user[0]['name'],
                         'email'      =>  $user[0]['email'],
-                        'password'      =>  $user[0]['password'],
                     ]);
                 } else {
                     return response()->json([
@@ -45,16 +37,13 @@ class LoginController extends Controller
                     'success'   => false,
                     'message'      =>  "Il n'y a aucun utilisateur ayant cette adresse email"
                 ]);
-
             }
-
         } else {
 
             return response()->json([
                 'success'   => false,
                 'message'      =>  "Access denied"
             ]);
-
         }
     }
 }
