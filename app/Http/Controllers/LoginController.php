@@ -9,7 +9,7 @@ class LoginController extends Controller
     public function index()
     {
         return response()->json([
-            'success'   => false,
+            'success'   => true,
             'name'      =>  'Jonathan'
         ]);
     }
